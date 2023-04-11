@@ -1,0 +1,48 @@
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+from PIL import Image
+from ckeditor.fields import RichTextField
+
+# Create your models here.
+
+class Question(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    title = models.CharField(max_length=10000)
+    content = models.TextField(null=True,blank=True)
+    date_created = models.DateTimeField(default=timezone.now())
+    image = models.ImageField(upload_to='question_images', null=True, blank=True)
+    likes = models.ManyToManyField(User, related_name='liked_questions')
+    
+    def total_likes(self):
+        return self.likes.count()
+    
+    def __str__(self):
+        return f'{self.user.username} - Question'
+    
+    def save(self, *args, **kwargs):
+        if self.image:
+            super().save(*args, **kwargs)
+            img = Image.open(self.image.path)
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
+                img.save(self.image.path)
+        else:
+            super().save(*args, **kwargs)
+
+
+class Comment(models.Model):
+    question = models.ForeignKey(Question, related_name="comment", on_delete=models.CASCADE)
+    name = models.CharField(max_length=1000)
+    content = RichTextField()
+    date_created = models.DateTimeField(default=timezone.now)   
+
+    def __str__(self):
+        return '%s - %s' % (self.question.title, self.question.user)
+
+    def get_success_url(self):
+        return reverse('question-detail', kwargs={'pk':self.pk})
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
