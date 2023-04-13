@@ -644,10 +644,9 @@ img { max-width: 100%; }
     width: 32px;
     height: 32px;
     border-radius: 50%;
-
+    border-color: rebeccapurple;
     margin-right: 12px;
     flex-shrink: 0;
-
     overflow: hidden;
     position: relative;
 }
@@ -656,7 +655,7 @@ img { max-width: 100%; }
     position: absolute;
     top: 0; bottom: 0;
     left: 0; right: 0;
-
+    border-color: blueviolet;
     border: 1px solid var(--img-border);
     border-radius: 50%;
 }
@@ -666,6 +665,28 @@ img { max-width: 100%; }
     flex-direction: column;
     flex: 1;
     gap: 2px;
+}
+
+.frame{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border-color: blueviolet;
+    margin-right: 12px;
+    flex-shrink: 0;
+
+    overflow: hidden;
+    position: relative;
+    
+}
+.frame::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+
+    border: 1px solid var(--img-border);
+    border-radius: 50%;
 }
 .side-menu__suggestion-info a {
     font-size: 14px;

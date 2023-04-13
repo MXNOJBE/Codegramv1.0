@@ -104,10 +104,13 @@
                         {% for user in all_users %}
                         {% if request.user.username != user.username %}
                         <div class="side-menu__suggestion">
+
                             <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
+                            <div class="frame">
                                 <img src="{{user.profile.image.url}}" alt="User Picture">
+                            </div>
                             </a>
-                            
+
                             <div class="side-menu__suggestion-info">
                                 {% if user.profile.first_name %}
                                 <a href="{% url 'profile' user %}">{{user.profile.first_name|title}} {{user.profile.last_name|title}}</a>

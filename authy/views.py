@@ -12,8 +12,8 @@ from django.contrib.auth import authenticate, login
 
 from post.models import Post, Follow, Stream
 from django.contrib.auth.models import User
-from authy.models import Profile
-from .forms import EditProfileForm, UserRegisterForm
+from authy.models import Profile,ChooseForm,Choose
+from .forms import EditProfileForm, UserRegisterForm,ProfileUpdateForm,R_UpdateForm
 from django.urls import resolve
 from comment.models import Comment
 
@@ -59,20 +59,33 @@ def EditProfile(request):
 
     if request.method == "POST":
         form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        r_form = R_UpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        
         if form.is_valid():
+            '''
             profile.image = form.cleaned_data.get('image')
             profile.first_name = form.cleaned_data.get('first_name')
             profile.last_name = form.cleaned_data.get('last_name')
             profile.location = form.cleaned_data.get('location')
             profile.url = form.cleaned_data.get('url')
             profile.bio = form.cleaned_data.get('bio')
-            profile.save()
+            profile.save()'''
+            
+            form.save()
+            if request.user.is_staff:
+                r_form.save()
+            else:
+                profile_form.save()
             return redirect('profile', profile.user.username)
     else:
         form = EditProfileForm(instance=request.user.profile)
-
+        profile_form = ProfileUpdateForm(instance=request.user.profile) #"userprofile" model -> OneToOneField relatinon with user
+        r_form = R_UpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        
     context = {
-        'form':form,
+        'form':form,'r_form':r_form,
+            'profile_form': profile_form
     }
     return render(request, 'editprofile.html', context)
 
@@ -98,7 +111,28 @@ def follow(request, username, option):
         return HttpResponseRedirect(reverse('profile', args=[username]))
 
 
-def register(request):
+def choose(request):
+    if request.method=='POST':
+        form=ChooseForm(request.POST)
+        if form.is_valid():
+            c=Choose()
+            c.c_id=form.cleaned_data['c_id']
+            c.save()
+            print(c.c_id)
+            if c.c_id == 1:
+                return HttpResponseRedirect('/users/sign-up/1')
+            elif c.c_id == 2:
+                return HttpResponseRedirect('/users/sign-up/2')
+            else:
+                return HttpResponseRedirect('/users/sign-up/3')
+        else:
+            messages.warning(request, form.errors)
+            return HttpResponseRedirect('/choose')
+    form=ChooseForm()
+    return render(request,'userauths/choose.html',{'form':form})
+
+
+def register(request,c_id):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -110,9 +144,14 @@ def register(request):
             # Automatically Log In The User
             new_user = authenticate(username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],)
+            user=User.objects.filter(username=username).first()
+            if c_id == 1:
+                user.is_staff=True
+            user.save()
             login(request, new_user)
             # return redirect('editprofile')
-            return redirect('index')
+            
+            return redirect('/users/profile/edit')
             
 
 

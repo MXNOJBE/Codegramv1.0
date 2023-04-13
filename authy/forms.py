@@ -1,8 +1,8 @@
 from django import forms
 from authy.models import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+from django.forms import TextInput, EmailInput, Select, FileInput
 
 
 class EditProfileForm(forms.ModelForm):
@@ -22,6 +22,8 @@ class EditProfileForm(forms.ModelForm):
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'prompt srch_explore'}), max_length=50, required=True)
     # username = forms.EmailInput(widget=forms.TextInput(attrs={'placeholder': 'Username'}), max_length=50, required=True)
+    first_name = forms.CharField(max_length=100,label= 'First Name :')
+    last_name = forms.CharField(max_length=100,label= 'Last Name :')
 
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'prompt srch_explore'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password', 'class': 'prompt srch_explore'}))
@@ -30,4 +32,39 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username','first_name','last_name', 'email', 'password1', 'password2']
+
+
+
+class UserUpdateForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('username','email','first_name','last_name')
+        widgets = {
+            'username'  : TextInput(attrs={'class': 'input','placeholder':'username'}),
+            'email'     : EmailInput(attrs={'class': 'input','placeholder':'email'}),
+            'first_name': TextInput(attrs={'class': 'input','placeholder':'first_name'}),
+            'last_name' : TextInput(attrs={'class': 'input','placeholder':'last_name' }),
+        }
+
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('phone',)
+        widgets = {
+            'phone'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
+            
+        }
+
+class R_UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('company_name','company_email','phone')
+        widgets = {
+            'company_name'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
+            'company_email'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
+            'phone'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
+            
+            }
