@@ -1,57 +1,40 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Choose</title>
-    <style>
-        .button {
-  float: left;
-  margin: 0 5px 0 0;
-  width: 100px;
-  height: 40px;
-  position: relative;
-}
-
-.button label,
-.button input {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: cyan;
-  border-radius: 4px;
-}
-
-.button input[type="radio"] {
-  opacity: 0.011;
-  z-index: 100;
-}
-
-.button input[type="radio"]:checked + label {
-  background: #20b8be;
-  border-radius: 4px;
-}
-
-.button label {
-  cursor: pointer;
-  z-index: 90;
-  line-height: 1.8em;
-}
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+  <link rel="stylesheet" href="{% static 'assets2/style.css' %}">
+</style>
 </head>
 <body>
-<form action="" method="post">
-    {%csrf_token%}
-
-   <select class="input" name="c_id">
-        <option value="1">Recruiter</option>
-        <option value="2">Student</option>
-        <option value="3">User</option>
-    </select>
-    <input type="submit">
-</form>
-</body>
-</html>
+  <body>
+    <div id="wrapper">
+      <div class="container">
+        <div class="form-data">
+          <form action="" method="POST">{% csrf_token %}
+            <div class="logo">
+              <h2 style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">CODEGRAM</h2>
+            </div>
+            <form class = "form-data" action="" method="post">`
+              {%csrf_token%}
+                  <button class="form-btn" name="c_id" type="submit" value="1">Recruiter</button>
+                  <button class="form-btn" name="c_id" type="submit" value="3">User</button>
+                  <button class="form-btn" type="submit">Log in</button>
+            <a class="password-reset" href="#">Forgot password?</a>
+          </form>
+          <div class="sign-up">
+            Already have an account? <a href="{% url 'sign-in' %}">Sign in</a>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html> 

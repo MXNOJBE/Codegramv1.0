@@ -22,8 +22,8 @@ class EditProfileForm(forms.ModelForm):
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'prompt srch_explore'}), max_length=50, required=True)
     # username = forms.EmailInput(widget=forms.TextInput(attrs={'placeholder': 'Username'}), max_length=50, required=True)
-    first_name = forms.CharField(max_length=100,label= 'First Name :')
-    last_name = forms.CharField(max_length=100,label= 'Last Name :')
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'prompt srch_explore'}), max_length=50, required=True)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'prompt srch_explore'}), max_length=50, required=True)
 
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'prompt srch_explore'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password', 'class': 'prompt srch_explore'}))
@@ -63,8 +63,8 @@ class R_UpdateForm(forms.ModelForm):
         model = Profile
         fields = ('company_name','company_email','phone')
         widgets = {
-            'company_name'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
-            'company_email'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
-            'phone'     : TextInput(attrs={'class': 'input','placeholder':'phone'}),
+            'company_name'     : TextInput(attrs={'class': 'input','placeholder':'Company Name'}),
+            'company_email'     : TextInput(attrs={'class': 'input','placeholder':'Company Email'}),
+            'phone'     : TextInput(attrs={'class': 'input','placeholder':'Phone'}),
             
             }
