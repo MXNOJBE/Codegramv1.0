@@ -20,9 +20,9 @@
         <div class="form-data">
           <form action="" method="POST">{% csrf_token %}
             <div class="logo">
-              <h2 style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">CODEGRAM</h2>
+              <img src="{% static 'assets2/images/logo.png' %}" alt="logo">
             </div>
-            <form class = "form-data" action="" method="post">`
+            <form class = "form-data" action="" method="post">
               {%csrf_token%}
                   <button class="form-btn" name="c_id" type="submit" value="1">Recruiter</button>
                   <button class="form-btn" name="c_id" type="submit" value="3">User</button>
