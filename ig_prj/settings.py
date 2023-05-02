@@ -95,9 +95,9 @@ WSGI_APPLICATION = 'ig_prj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gp10',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': '{name of the database}',
+        'USER': '{name of the database}',
+        'PASSWORD': '{password of the database}',
         'HOST': 'localhost',
         'PORT': '3306',
     }
