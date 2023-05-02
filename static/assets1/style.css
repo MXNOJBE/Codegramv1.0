@@ -668,25 +668,14 @@ img { max-width: 100%; }
 }
 
 .frame{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border-color: blueviolet;
-    margin-right: 12px;
-    flex-shrink: 0;
-
-    overflow: hidden;
-    position: relative;
-    
+  border: 2px solid #ccc; /* Add a 2-pixel solid border in a light grey color */
+  padding: 10px; /* Add padding inside the frame */
+  display: inline-block; /* Make the frame a block-level element to wrap around the image */
 }
 .frame::after {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-
-    border: 1px solid var(--img-border);
-    border-radius: 50%;
+  border: 2px solid #ccc; /* Add a 2-pixel solid border in a light grey color */
+  padding: 10px; /* Add padding inside the frame */
+  display: inline-block; /* Make the frame a block-level element to wrap around the image */
 }
 .side-menu__suggestion-info a {
     font-size: 14px;

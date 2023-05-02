@@ -101,16 +101,17 @@
                         <h2>Suggestions for You</h2>
                         <button>See All</button>
                     </div>
+
                         {% for user in all_users %}
                         {% if request.user.username != user.username %}
                         <div class="side-menu__suggestion">
-
                             <a href="{% url 'profile' user %}" class="side-menu__suggestion-avatar">
+                            {% for user in all_users %}
                             <div class="frame">
                                 <img src="{{user.profile.image.url}}" alt="User Picture">
                             </div>
+                            {% endfor %}}
                             </a>
-
                             <div class="side-menu__suggestion-info">
                                 {% if user.profile.first_name %}
                                 <a href="{% url 'profile' user %}">{{user.profile.first_name|title}} {{user.profile.last_name|title}}</a>
@@ -119,7 +120,6 @@
                                 {% endif %}
                                 <span>@{{user.username}}</span>
                             </div>
-
                             {% if follow_status == True %}
                             <a href="{% url 'follow' user 0 %}" class="side-menu__suggestion-button">Follow</a>
                             {% else %}
@@ -132,11 +132,12 @@
                     </div>
                 </div>
             </div>
-
             <section class="side-menu">
                 <div class="side-menu__user-profile">
                     <a href="" target="_blank" class="side-menu__user-avatar">
-                        <img src="{{ request.user.profile.image.url }}" alt="User Picture">
+                        <div class="frame">
+                            <img src="{{user.profile.image.url}}" alt="User Picture">
+                        </div>
                     </a>
                     <div class="side-menu__user-info">
                         {% if user.profile.first_name %}
@@ -170,7 +171,6 @@
                                     {% endif %}
                                     <span>@{{user.username}}</span>
                                 </div>
-
                                 {% if follow_status == True %}
                                 <a href="{% url 'follow' user 0 %}" class="side-menu__suggestion-button">Follow</a>
                                 {% else %}
@@ -179,7 +179,6 @@
                             </div>
                             {% endif %}
                         {% endfor %}
-                        
                     </div>
                 </div>
             </section>
