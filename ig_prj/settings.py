@@ -95,11 +95,11 @@ WSGI_APPLICATION = 'ig_prj.wsgi.application'
 DATABASES = {
    'default': {
       'ENGINE': 'django.db.backends.mysql',
-      'NAME': 'django',
-      'USER': 'root',
-      'PASSWORD': '',
-      'HOST': '127.0.0.1',
-      'PORT': '',
+      'NAME': 'codegram',
+      'USER': 'codegram',
+      'PASSWORD': '123456789',
+      'HOST': 'codegram.cvyx6alay0tm.us-east-1.rds.amazonaws.com',
+      'PORT': '3306',
    }
 }
 
