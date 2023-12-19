@@ -93,14 +93,14 @@ WSGI_APPLICATION = 'ig_prj.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '{name of the database}',
-        'USER': '{name of the database}',
-        'PASSWORD': '{password of the database}',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+   'default': {
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'django',
+      'USER': 'root',
+      'PASSWORD': '',
+      'HOST': '127.0.0.1',
+      'PORT': '3306',
+   }
 }
 
 # Password validation
